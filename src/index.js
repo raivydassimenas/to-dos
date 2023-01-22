@@ -1,7 +1,8 @@
 import todo from "./todo";
 import project from "./project";
+import { format } from 'date-fns';
 
-let projectList = [];
+let projectList = localStorage.getItem('projectList');
 
 const content = document.querySelector("#content");
 
@@ -38,7 +39,7 @@ projects.addEventListener("click", (e) => {
             todoLi.appendChild(todoLiDescription);
 
             const todoLiDueDate = document.createElement("div");
-            todoLiDueDate = todoElem.dueDate;
+            todoLiDueDate = format(todoElem.dueDate, "MMM d, yyyy");
             todoLi.appendChild(todoLiDueDate);
 
             const todoLiPriority = document.createElement("div");
