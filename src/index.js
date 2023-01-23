@@ -51,4 +51,22 @@ projects.addEventListener("click", (e) => {
 
         project.appendChild(todoList);
     });
-})
+});
+
+const newProjectDiv = document.createElement("div");
+newProjectDiv.classList.add("new-project-div");
+
+const newProjectTitle = document.createElement("input");
+newProjectTitle.setAttribute("type", "text");
+
+const newProjectButton = document.createElement('button');
+newProjectButton.innerText = "New project";
+newProjectButton.addEventListener("click", (e) => {
+    const projectToCreate = project(newProjectTitle.value);
+    let storedProjects = JSON.parse(localStorage.getItem("projectList"));
+    storedProjects.push(projectToCreate);
+    localStorage.setItem("projectList", JSON.stringify(storedProjects));
+});
+
+newProjectDiv.appendChild(newProjectTitle);
+newProjectDiv.appendChild(newProjectButton);
