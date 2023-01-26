@@ -34,6 +34,16 @@ const createProjectTodoList = function(project) {
 
         todo.innerText = elem.title;
         projectTodoListElem.appendChild(todo);
+
+        const removeTodoButton = document.createElement('button');
+        removeTodoButton.addEventListener("click", e => {
+            let projectInList = projectList.filter(elem => elem === project)[0];
+            const index = projectInList.todos.indexOf(elem);
+            if (index != -1) {
+                projectInList.todos.splice(index);
+            }
+            localStorage.setItem("projectList", JSON.stringify(projecList));
+        })
     });
 
     return projectTodoListElem;
