@@ -43,6 +43,8 @@ const createProjectTodoList = function(project) {
                 projectInList.todos.splice(index);
             }
             localStorage.setItem("projectList", JSON.stringify(projecList));
+
+            createProjectTodoList(project);
         })
     });
 
