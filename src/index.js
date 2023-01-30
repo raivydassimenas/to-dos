@@ -1,12 +1,15 @@
 import todo from "./todo";
 import project from "./project";
 import { format } from 'date-fns';
+import css from './styles.css';
 
 let projectList = JSON.parse(localStorage.getItem('projectList'));
 
 const content = document.querySelector("#content");
 
-const menu = document.createElement("ul");
+const menuNav = document.createElement("nav");
+const menuUL = document.createElement("ul");
+
 
 const tab = document.createElement("div");
 tab.classList.add("tab");
@@ -92,3 +95,10 @@ newProjectButton.addEventListener("click", (e) => {
 
 newProjectDiv.appendChild(newProjectTitle);
 newProjectDiv.appendChild(newProjectButton);
+
+const createProjectButtonLI = document.createElement("li");
+const createProjectButton = document.createElement("button");
+createProjectButton.innerText = "Create New Project";
+createProjectButton.addEventListener("click", e => {
+
+})
