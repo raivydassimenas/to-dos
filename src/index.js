@@ -78,27 +78,9 @@ const todoDetails = function (todo) {
     return todo;
 }
 
-const newProjectDiv = document.createElement("div");
-newProjectDiv.classList.add("new-project-div");
-
-const newProjectTitle = document.createElement("input");
-newProjectTitle.setAttribute("type", "text");
-
-const newProjectButton = document.createElement('button');
-newProjectButton.innerText = "New project";
-newProjectButton.addEventListener("click", (e) => {
-    const projectToCreate = project(newProjectTitle.value);
-    let storedProjects = JSON.parse(localStorage.getItem("projectList"));
-    storedProjects.push(projectToCreate);
-    localStorage.setItem("projectList", JSON.stringify(storedProjects));
-});
-
-newProjectDiv.appendChild(newProjectTitle);
-newProjectDiv.appendChild(newProjectButton);
-
-const createProjectButtonLI = document.createElement("li");
-const createProjectButton = document.createElement("button");
-createProjectButton.innerText = "Create New Project";
-createProjectButton.addEventListener("click", e => {
-
-})
+const createProjectLinkLI = document.createElement("li");
+const createProjectLink = document.createElement("a");
+createProjectLink.innerText = "Create New Project";
+createProjectLink.setAttribute("data-modal", "create-project");
+createProjectLinkLI.appenChile(createProjectLink);
+menuUL.appendChild(createProjectLinkLI);
