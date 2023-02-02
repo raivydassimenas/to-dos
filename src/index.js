@@ -82,8 +82,7 @@ const createProjectLinkLI = document.createElement("li");
 const createProjectLink = document.createElement("a");
 createProjectLink.innerText = "Create New Project";
 createProjectLink.setAttribute("data-modal", "create-project");
-createProjectLinkLI.appenChile(createProjectLink);
-menuUL.appendChild(createProjectLinkLI);
+
 
 const projectModal = document.createElement("div");
 projectModal.classList.add("modal");
@@ -99,3 +98,14 @@ projectModalExitButton.innerText = "X";
 projectModalContainer.appendChild(projectModalExitButton);
 projectModal.appendChild(projectModalContainer);
 
+createProjectLink.addEventListener("click", e => {
+    e.preventDefault();
+    projectModal.classList.add("open");
+    projectModalExitButton.addEventListener("click", e => {
+        e.preventDefault();
+        projectModal.classList.remove("open");
+    });
+});
+
+createProjectLinkLI.appenChild(createProjectLink);
+menuUL.appendChild(createProjectLinkLI);
