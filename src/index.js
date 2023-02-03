@@ -92,7 +92,7 @@ projectModalExit.classList.add("modal-bg", "modal-exit");
 projectModal.appendChild(projectModalExit);
 const projectModalContainer = document.createElement("div");
 projectModalContainer.classList.add("modal-container");
-const projectModalExitButton = createElement("button");
+const projectModalExitButton = document.createElement("button");
 projectModalExitButton.classList.add("modal-close", "modal-exit");
 projectModalExitButton.innerText = "X";
 projectModalContainer.appendChild(projectModalExitButton);
@@ -107,5 +107,7 @@ createProjectLink.addEventListener("click", e => {
     });
 });
 
-createProjectLinkLI.appenChild(createProjectLink);
+createProjectLinkLI.appendChild(createProjectLink);
 menuUL.appendChild(createProjectLinkLI);
+menuNav.appendChild(menuUL);
+content.appendChild(menuNav);
