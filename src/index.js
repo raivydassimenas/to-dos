@@ -111,3 +111,4 @@ createProjectLinkLI.appendChild(createProjectLink);
 menuUL.appendChild(createProjectLinkLI);
 menuNav.appendChild(menuUL);
 content.appendChild(menuNav);
+content.appendChild(projectModal);
