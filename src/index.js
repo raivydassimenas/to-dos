@@ -96,6 +96,15 @@ const projectModalExitButton = document.createElement("button");
 projectModalExitButton.classList.add("modal-close", "modal-exit");
 projectModalExitButton.innerText = "X";
 projectModalContainer.appendChild(projectModalExitButton);
+const projectModalName = document.createElement("input");
+projectModalName.setAttribute("placeholder", "Project name");
+projectModal.appendChild(projectModalName);
+const projectModalOK = document.createElement("button");
+projectModalOK.innerText = "OK";
+projectModalOK.addEventListener("click", e => {
+    e.preventDefault();
+});
+projectModal.appendChild(projectModalOK);
 projectModal.appendChild(projectModalContainer);
 
 createProjectLink.addEventListener("click", e => {
