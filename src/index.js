@@ -3,7 +3,9 @@ import project from "./project";
 import { format } from 'date-fns';
 import css from './styles.css';
 
-let projectList = JSON.parse(localStorage.getItem('projectList'));
+localStorage.clear();
+localStorage.setItem("projects", JSON.stringify([]));
+let projectList = JSON.parse(localStorage.getItem("projects"));
 
 const content = document.querySelector("#content");
 
@@ -103,6 +105,10 @@ const projectModalOK = document.createElement("button");
 projectModalOK.innerText = "OK";
 projectModalOK.addEventListener("click", e => {
     e.preventDefault();
+    const newProject = project(projectModalName);
+    const storedProjects = JSON.parse(localStorage.getItem("projects"));
+    storedProjects.push(newProject);
+    localStorege.setItem("projects", JSON.stringify(storedProjects));
 });
 projectModal.appendChild(projectModalOK);
 projectModal.appendChild(projectModalContainer);
