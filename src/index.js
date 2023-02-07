@@ -108,7 +108,7 @@ projectModalOK.addEventListener("click", e => {
     const newProject = project(projectModalName);
     const storedProjects = JSON.parse(localStorage.getItem("projects"));
     storedProjects.push(newProject);
-    localStorege.setItem("projects", JSON.stringify(storedProjects));
+    localStorage.setItem("projects", JSON.stringify(storedProjects));
 });
 projectModal.appendChild(projectModalOK);
 projectModal.appendChild(projectModalContainer);
