@@ -23,7 +23,6 @@ const createProjectList = function () {
         const project = document.createElement("li");
 
         project.innerText = elem.title;
-        project.appendChild(title);
 
         projectListElem.appendChild(project);
     });
@@ -105,10 +104,18 @@ const projectModalOK = document.createElement("button");
 projectModalOK.innerText = "OK";
 projectModalOK.addEventListener("click", e => {
     e.preventDefault();
-    const newProject = project(projectModalName);
+    const newProject = project(projectModalName.value);
     const storedProjects = JSON.parse(localStorage.getItem("projects"));
     storedProjects.push(newProject);
     localStorage.setItem("projects", JSON.stringify(storedProjects));
+
+    projectModal.classList.remove("open");
+
+    projectList = JSON.parse(localStorage.getItem("projects"));
+
+    tab.innerHTML = "";
+    tab.appendChild(createProjectList());
+    content.appendChild(tab);
 });
 projectModal.appendChild(projectModalOK);
 projectModal.appendChild(projectModalContainer);
