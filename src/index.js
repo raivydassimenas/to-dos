@@ -19,6 +19,8 @@ tab.classList.add("tab");
 const createProjectList = function () {
     const projectListElem = document.createElement('ul');
 
+    projectList = JSON.parse(localStorage.getItem("projects"));
+
     projectList.forEach(elem => {
         const project = document.createElement("li");
 
@@ -41,12 +43,13 @@ const createProjectTodoList = function(project) {
 
         const removeTodoButton = document.createElement('button');
         removeTodoButton.addEventListener("click", e => {
+            projectList = JSON.parse(localStorage.getItem("projects"));
             let projectInList = projectList.filter(elem => elem === project)[0];
             const index = projectInList.todos.indexOf(elem);
             if (index != -1) {
-                projectInList.todos.splice(index);
+                projectInList.todos.splice(index,   );
             }
-            localStorage.setItem("projectList", JSON.stringify(projecList));
+            localStorage.setItem("projects", JSON.stringify(projecList));
 
             createProjectTodoList(project);
         })
