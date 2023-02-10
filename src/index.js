@@ -26,6 +26,24 @@ const createProjectList = function () {
 
         project.innerText = elem.title;
 
+        const projectSelectButton = document.createElement("button");
+        projectSelectButton.addEventListener("click", e => {
+            const todos = createProjectTodoList(elem);
+            tab.innerHTML = "";
+            tab.appendChild(todos);
+
+            const backButton = document.createElement("button");
+            backButton.addEventListener("click", e => {
+                const projectList = createProjectList();
+                tab.innerHTML = "";
+                tab.appendChild(projectList);
+            });
+            backButton.innerText = "Back";
+            tab.appendChild(backButton);
+        });
+        projectSelectButton.innerText = "Select";
+        project.appendChild(projectSelectButton);
+
         projectListElem.appendChild(project);
     });
     
