@@ -150,6 +150,27 @@ createProjectLink.addEventListener("click", e => {
     });
 });
 
+const todoModal = document.createElement("div");
+todoModal.classList.add("modal");
+todoModal.setAttribute("id", "create-todo");
+const todoModalExit = document.createElement("div")
+todoModalExit.classList.add("modal-bg", "modal-exit");
+todoModal.appendChild(projectModalExit);
+const todoModalContainer = document.createElement("div");
+todoModalContainer.classList.add("modal-container");
+const todoModalExitButton = document.createElement("button");
+todoModalExitButton.classList.add("modal-close", "modal-exit");
+todoModalExitButton.innerText = "X";
+todoModalContainer.appendChild(todoModalExitButton);
+const todotModalName = document.createElement("input");
+todoModalName.setAttribute("placeholder", "Todo name");
+todoModal.appendChild(todoModalName);
+const todoModalOK = document.createElement("button");
+todoModalOK.innerText = "OK";
+todoModalOK.addEventListener("click", e => {
+    
+})
+
 createProjectLinkLI.appendChild(createProjectLink);
 menuUL.appendChild(createProjectLinkLI);
 menuNav.appendChild(menuUL);
