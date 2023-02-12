@@ -70,7 +70,7 @@ const createProjectTodoList = function(project) {
             localStorage.setItem("projects", JSON.stringify(projecList));
 
             createProjectTodoList(project);
-        })
+        });
     });
 
     return projectTodoListElem;
@@ -162,7 +162,7 @@ const todoModalExitButton = document.createElement("button");
 todoModalExitButton.classList.add("modal-close", "modal-exit");
 todoModalExitButton.innerText = "X";
 todoModalContainer.appendChild(todoModalExitButton);
-const todotModalName = document.createElement("input");
+const todoModalName = document.createElement("input");
 todoModalName.setAttribute("placeholder", "Todo name");
 todoModal.appendChild(todoModalName);
 const todoModalOK = document.createElement("button");
