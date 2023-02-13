@@ -1,7 +1,7 @@
 import todo from "./todo";
 import project from "./project";
-import { format } from 'date-fns';
-import css from './styles.css';
+import { format } from "date-fns";
+import css from "./styles.css";
 
 localStorage.clear();
 localStorage.setItem("projects", JSON.stringify([]));
@@ -12,99 +12,132 @@ const content = document.querySelector("#content");
 const menuNav = document.createElement("nav");
 const menuUL = document.createElement("ul");
 
-
 const tab = document.createElement("div");
 tab.classList.add("tab");
 
 const createProjectList = function () {
-    const projectListElem = document.createElement('ul');
+  const projectListElem = document.createElement("ul");
 
-    projectList = JSON.parse(localStorage.getItem("projects"));
+  projectList = JSON.parse(localStorage.getItem("projects"));
 
-    projectList.forEach(elem => {
-        const project = document.createElement("li");
+  projectList.forEach((elem) => {
+    const project = document.createElement("li");
 
-        project.innerText = elem.title;
+    project.innerText = elem.title;
 
-        const projectSelectButton = document.createElement("button");
-        projectSelectButton.addEventListener("click", e => {
-            const todos = createProjectTodoList(elem);
-            tab.innerHTML = "";
-            tab.appendChild(todos);
+    const projectSelectButton = document.createElement("button");
+    projectSelectButton.addEventListener("click", (e) => {
+      const todos = createProjectTodoList(elem);
+      tab.innerHTML = "";
+      tab.appendChild(todos);
 
-            const backButton = document.createElement("button");
-            backButton.addEventListener("click", e => {
-                const projectList = createProjectList();
-                tab.innerHTML = "";
-                tab.appendChild(projectList);
-            });
-            backButton.innerText = "Back";
-            tab.appendChild(backButton);
-        });
-        projectSelectButton.innerText = "Select";
-        project.appendChild(projectSelectButton);
-
-        projectListElem.appendChild(project);
+      const backButton = document.createElement("button");
+      backButton.addEventListener("click", (e) => {
+        const projectList = createProjectList();
+        tab.innerHTML = "";
+        tab.appendChild(projectList);
+      });
+      backButton.innerText = "Back";
+      tab.appendChild(backButton);
     });
-    
-    return projectListElem;
+    projectSelectButton.innerText = "Select";
+    project.appendChild(projectSelectButton);
+
+    projectListElem.appendChild(project);
+  });
+
+  return projectListElem;
 };
 
-const createProjectTodoList = function(project) {
-    const projectTodoListElem = document.createElement('ul');
+const createProjectTodoList = function (project) {
+  const projectTodoListElem = document.createElement("ul");
 
-    project.todos.forEach(elem => {
-        const todo = document.createElement('li');
+  project.todos.forEach((elem) => {
+    const todo = document.createElement("li");
 
-        todo.innerText = elem.title;
-        projectTodoListElem.appendChild(todo);
+    todo.innerText = elem.title;
+    projectTodoListElem.appendChild(todo);
 
-        const removeTodoButton = document.createElement('button');
-        removeTodoButton.addEventListener("click", e => {
-            projectList = JSON.parse(localStorage.getItem("projects"));
-            let projectInList = projectList.filter(elem => elem === project)[0];
-            const index = projectInList.todos.indexOf(elem);
-            if (index != -1) {
-                projectInList.todos.splice(index,   );
-            }
-            localStorage.setItem("projects", JSON.stringify(projecList));
+    const removeTodoButton = document.createElement("button");
+    removeTodoButton.addEventListener("click", (e) => {
+      projectList = JSON.parse(localStorage.getItem("projects"));
+      let projectInList = projectList.filter((elem) => elem === project)[0];
+      const index = projectInList.todos.indexOf(elem);
+      if (index != -1) {
+        projectInList.todos.splice(index);
+      }
+      localStorage.setItem("projects", JSON.stringify(projecList));
 
-            createProjectTodoList(project);
-        });
+      createProjectTodoList(project);
     });
+  });
 
-    return projectTodoListElem;
+  const todoModal = document.createElement("div");
+  todoModal.classList.add("modal");
+  todoModal.setAttribute("id", "create-todo");
+  const todoModalExit = document.createElement("div");
+  todoModalExit.classList.add("modal-bg", "modal-exit");
+  todoModal.appendChild(projectModalExit);
+  const todoModalContainer = document.createElement("div");
+  todoModalContainer.classList.add("modal-container");
+  const todoModalExitButton = document.createElement("button");
+  todoModalExitButton.classList.add("modal-close", "modal-exit");
+  todoModalExitButton.innerText = "X";
+  todoModalContainer.appendChild(todoModalExitButton);
+  const todoModalName = document.createElement("input");
+  todoModalName.setAttribute("placeholder", "Todo name");
+  todoModal.appendChild(todoModalName);
+  const todoModalDescription = document.createElement("input");
+  todoModalDescription.setAttribute("placeholder", "Description");
+  todoModal.appendChild(todoModalDescription);
+  const todoModalOK = document.createElement("button");
+  todoModalOK.innerText = "OK";
+  todoModalOK.addEventListener("click", (e) => {
+    const name = todoModalName.value;
+    const description = todoModalDescription.value;
+
+    const newTodo = todo(name, description, null, null);
+    const projectList = JSON.parse(localStorage.getItem("projects"));
+    const currProject = porjectList.filter(e => project === currProject)[0];
+    projectList.splice(projectList.indexOf(currProject));
+    currProject.todos.push(newTodo);
+    projectList.push(currProject);
+    localStorage.setItem("projects", JSON.stringify(projectList));
+  });
+  todoModal.appendChild(todoModalOK);
+
+  content.appendChild(todoModal);
+
+  return projectTodoListElem;
 };
 
 const todoDetails = function (todo) {
+  const todoElem = document.createElement("div");
+  todoElem.classList.add("todo-elem");
 
-    const todoElem = document.createElement("div");
-    todoElem.classList.add("todo-elem");
+  const todoTitle = document.createElement("div");
+  todoTitle = todo.title;
+  todoElem.appendChild(todoTitle);
 
-    const todoTitle = document.createElement("div");
-    todoTitle = todo.title;
-    todoElem.appendChild(todoTitle);
+  const todoDescription = document.createElement("div");
+  todoDescription = todo.description;
+  todo.appendChild(todoDescription);
 
-    const todoDescription = document.createElement("div");
-    todoDescription = todo.description;
-    todo.appendChild(todoDescription);
+  const todoDueDate = document.createElement("div");
+  todoDueDate = format(todo.dueDate, "MMM d, yyyy");
+  todo.appendChild(todoDueDate);
 
-    const todoDueDate = document.createElement("div");
-    todoDueDate = format(todo.dueDate, "MMM d, yyyy");
-    todo.appendChild(todoDueDate);
+  const todoPriority = document.createElement("div");
+  todoPriority = todoElem.priority;
+  todo.appendChild(todoPriority);
 
-    const todoPriority = document.createElement("div");
-    todoPriority = todoElem.priority;
-    todo.appendChild(todoPriority);
-
-    return todo;
-}
+  return todo;
+};
 
 const createProjectLinkLI = document.createElement("li");
 const createProjectLink = document.createElement("a");
 createProjectLink.innerText = "Create New Project";
 createProjectLink.setAttribute("data-modal", "create-project");
-
 
 const projectModal = document.createElement("div");
 projectModal.classList.add("modal");
@@ -123,53 +156,32 @@ projectModalName.setAttribute("placeholder", "Project name");
 projectModal.appendChild(projectModalName);
 const projectModalOK = document.createElement("button");
 projectModalOK.innerText = "OK";
-projectModalOK.addEventListener("click", e => {
-    e.preventDefault();
-    const newProject = project(projectModalName.value);
-    const storedProjects = JSON.parse(localStorage.getItem("projects"));
-    storedProjects.push(newProject);
-    localStorage.setItem("projects", JSON.stringify(storedProjects));
+projectModalOK.addEventListener("click", (e) => {
+  e.preventDefault();
+  const newProject = project(projectModalName.value);
+  const storedProjects = JSON.parse(localStorage.getItem("projects"));
+  storedProjects.push(newProject);
+  localStorage.setItem("projects", JSON.stringify(storedProjects));
 
-    projectModal.classList.remove("open");
+  projectModal.classList.remove("open");
 
-    projectList = JSON.parse(localStorage.getItem("projects"));
+  projectList = JSON.parse(localStorage.getItem("projects"));
 
-    tab.innerHTML = "";
-    tab.appendChild(createProjectList());
-    content.appendChild(tab);
+  tab.innerHTML = "";
+  tab.appendChild(createProjectList());
+  content.appendChild(tab);
 });
 projectModal.appendChild(projectModalOK);
 projectModal.appendChild(projectModalContainer);
 
-createProjectLink.addEventListener("click", e => {
+createProjectLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  projectModal.classList.add("open");
+  projectModalExitButton.addEventListener("click", (e) => {
     e.preventDefault();
-    projectModal.classList.add("open");
-    projectModalExitButton.addEventListener("click", e => {
-        e.preventDefault();
-        projectModal.classList.remove("open");
-    });
+    projectModal.classList.remove("open");
+  });
 });
-
-const todoModal = document.createElement("div");
-todoModal.classList.add("modal");
-todoModal.setAttribute("id", "create-todo");
-const todoModalExit = document.createElement("div")
-todoModalExit.classList.add("modal-bg", "modal-exit");
-todoModal.appendChild(projectModalExit);
-const todoModalContainer = document.createElement("div");
-todoModalContainer.classList.add("modal-container");
-const todoModalExitButton = document.createElement("button");
-todoModalExitButton.classList.add("modal-close", "modal-exit");
-todoModalExitButton.innerText = "X";
-todoModalContainer.appendChild(todoModalExitButton);
-const todoModalName = document.createElement("input");
-todoModalName.setAttribute("placeholder", "Todo name");
-todoModal.appendChild(todoModalName);
-const todoModalOK = document.createElement("button");
-todoModalOK.innerText = "OK";
-todoModalOK.addEventListener("click", e => {
-    
-})
 
 createProjectLinkLI.appendChild(createProjectLink);
 menuUL.appendChild(createProjectLinkLI);
