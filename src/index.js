@@ -49,7 +49,9 @@ const createProjectList = function () {
   return projectListElem;
 };
 
-const createProjectTodoList = function (project) {
+const createProjectTodo = function (project) {
+  const projectTodo = document.createElement("div");
+
   const projectTodoListElem = document.createElement("ul");
 
   project.todos.forEach((elem) => {
@@ -71,6 +73,7 @@ const createProjectTodoList = function (project) {
       createProjectTodoList(project);
     });
   });
+  projectTodo.appendChild(projectTodoListElem);
 
   const todoModal = document.createElement("div");
   todoModal.classList.add("modal");
@@ -98,7 +101,7 @@ const createProjectTodoList = function (project) {
 
     const newTodo = todo(name, description, null, null);
     const projectList = JSON.parse(localStorage.getItem("projects"));
-    const currProject = porjectList.filter(e => project === currProject)[0];
+    const currProject = porjectList.filter((e) => project === currProject)[0];
     projectList.splice(projectList.indexOf(currProject));
     currProject.todos.push(newTodo);
     projectList.push(currProject);
@@ -108,7 +111,18 @@ const createProjectTodoList = function (project) {
 
   content.appendChild(todoModal);
 
-  return projectTodoListElem;
+  const createTodoButton = document.createElement("button");
+  createTodoButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    todoModal.classList.add("open");
+    todoModalExitButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      todotModal.classList.remove("open");
+    });
+  });
+  projectTodo.appendChild(createTodoButton);
+
+  return projectTodo;
 };
 
 const todoDetails = function (todo) {
