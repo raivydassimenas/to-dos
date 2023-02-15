@@ -27,7 +27,7 @@ const createProjectList = function () {
 
     const projectSelectButton = document.createElement("button");
     projectSelectButton.addEventListener("click", (e) => {
-      const todos = createProjectTodoList(elem);
+      const todos = createProjectTodo(elem);
       tab.innerHTML = "";
       tab.appendChild(todos);
 
@@ -101,7 +101,8 @@ const createProjectTodo = function (project) {
 
     const newTodo = todo(name, description, null, null);
     const projectList = JSON.parse(localStorage.getItem("projects"));
-    const currProject = porjectList.filter((e) => project === currProject)[0];
+    const currProject = projectList.filter(e => project === e)[0];
+    console.log(currProject);
     projectList.splice(projectList.indexOf(currProject));
     currProject.todos.push(newTodo);
     projectList.push(currProject);
