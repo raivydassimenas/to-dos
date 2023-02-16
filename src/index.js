@@ -99,20 +99,24 @@ const createProjectTodo = function (project) {
     const name = todoModalName.value;
     const description = todoModalDescription.value;
 
+    todoModal.classList.remove("open");
+
     const newTodo = todo(name, description, null, null);
-    const projectList = JSON.parse(localStorage.getItem("projects"));
     const currProject = projectList.filter(e => project === e)[0];
-    console.log(currProject);
     projectList.splice(projectList.indexOf(currProject));
     currProject.todos.push(newTodo);
     projectList.push(currProject);
     localStorage.setItem("projects", JSON.stringify(projectList));
+
+    tab.innerHTML = "";
+    tab.appendChild(projectTodo);
   });
   todoModal.appendChild(todoModalOK);
 
   content.appendChild(todoModal);
 
   const createTodoButton = document.createElement("button");
+  createTodoButton.innerText = "New Todo";
   createTodoButton.addEventListener("click", (e) => {
     e.preventDefault();
     todoModal.classList.add("open");
