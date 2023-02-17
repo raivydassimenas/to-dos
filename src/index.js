@@ -186,6 +186,8 @@ projectModalOK.addEventListener("click", (e) => {
 
   projectList = JSON.parse(localStorage.getItem("projects"));
 
+  projectModalName.value = "";
+
   tab.innerHTML = "";
   tab.appendChild(createProjectList());
   content.appendChild(tab);
