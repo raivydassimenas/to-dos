@@ -70,7 +70,7 @@ const createProjectTodo = function (project) {
       }
       localStorage.setItem("projects", JSON.stringify(projecList));
 
-      createProjectTodoList(project);
+      createProjectTodo(project);
     });
   });
   projectTodo.appendChild(projectTodoListElem);
@@ -109,7 +109,7 @@ const createProjectTodo = function (project) {
     localStorage.setItem("projects", JSON.stringify(projectList));
 
     tab.innerHTML = "";
-    tab.appendChild(projectTodo);
+    printProjectTodos(currProject);
   });
   todoModal.appendChild(todoModalOK);
 
@@ -129,6 +129,13 @@ const createProjectTodo = function (project) {
 
   return projectTodo;
 };
+
+const printProjectTodos = function(project) {
+  const todos = createProjectTodo(project);
+
+  tab.innerHTML = "";
+  tab.appendChild(todos);
+}
 
 const todoDetails = function (todo) {
   const todoElem = document.createElement("div");
@@ -197,6 +204,7 @@ projectModal.appendChild(projectModalContainer);
 
 createProjectLink.addEventListener("click", (e) => {
   e.preventDefault();
+  tab.innerHTML = "";
   projectModal.classList.add("open");
   projectModalExitButton.addEventListener("click", (e) => {
     e.preventDefault();
