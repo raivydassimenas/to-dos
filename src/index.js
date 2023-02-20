@@ -30,15 +30,6 @@ const createProjectList = function () {
       const todos = createProjectTodo(elem);
       tab.innerHTML = "";
       tab.appendChild(todos);
-
-      const backButton = document.createElement("button");
-      backButton.addEventListener("click", (e) => {
-        const projectList = createProjectList();
-        tab.innerHTML = "";
-        tab.appendChild(projectList);
-      });
-      backButton.innerText = "Back";
-      tab.appendChild(backButton);
     });
     projectSelectButton.innerText = "Select";
     project.appendChild(projectSelectButton);
@@ -126,6 +117,17 @@ const createProjectTodo = function (project) {
     });
   });
   projectTodo.appendChild(createTodoButton);
+
+  const backButton = document.createElement("button");
+  backButton.innerText = "Back";
+  backButton.addEventListener("click", e => {
+    e.preventDefault();
+    tab.innerText = "";
+
+    const projects = createProjectList();
+    tab.appendChild(projects);
+  });
+  projectTodo.appendChild(backButton);
 
   return projectTodo;
 };
