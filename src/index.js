@@ -17,6 +17,7 @@ tab.classList.add("tab");
 
 const createProjectList = function () {
   const projectListElem = document.createElement("ul");
+  projectListElem.classList.add("project-list");
 
   projectList = JSON.parse(localStorage.getItem("projects"));
 
@@ -26,6 +27,7 @@ const createProjectList = function () {
     project.innerText = elem.title;
 
     const projectSelectButton = document.createElement("button");
+    projectSelectButton.classList.add("select-button");
     projectSelectButton.addEventListener("click", (e) => {
       const todos = createProjectTodo(elem);
       tab.innerHTML = "";
