@@ -79,7 +79,7 @@ ul {
   margin: 0.5rem;
 }
 
-.project-list {
+.list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

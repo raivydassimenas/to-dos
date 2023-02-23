@@ -17,7 +17,7 @@ tab.classList.add("tab");
 
 const createProjectList = function () {
   const projectListElem = document.createElement("ul");
-  projectListElem.classList.add("project-list");
+  projectListElem.classList.add("list");
 
   projectList = JSON.parse(localStorage.getItem("projects"));
 
@@ -46,6 +46,7 @@ const createProjectTodo = function (project) {
   const projectTodo = document.createElement("div");
 
   const projectTodoListElem = document.createElement("ul");
+  projectTodoListElem.classList.add("list");
 
   project.todos.forEach((elem) => {
     const todo = document.createElement("li");
