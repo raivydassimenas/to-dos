@@ -44,6 +44,7 @@ const createProjectList = function () {
 
 const createProjectTodo = function (project) {
   const projectTodo = document.createElement("div");
+  projectTodo.classList.add("todo-list");
 
   const projectTodoListElem = document.createElement("ul");
   projectTodoListElem.classList.add("list");
