@@ -53,20 +53,24 @@ const createProjectTodo = function (project) {
     const todo = document.createElement("li");
 
     todo.innerText = elem.title;
-    projectTodoListElem.appendChild(todo);
-
+    
     const removeTodoButton = document.createElement("button");
+    removeTodoButton.classList.add("select-button");
+    removeTodoButton.innerText("Remove");
     removeTodoButton.addEventListener("click", (e) => {
       projectList = JSON.parse(localStorage.getItem("projects"));
       let projectInList = projectList.filter((elem) => elem === project)[0];
       const index = projectInList.todos.indexOf(elem);
       if (index != -1) {
-        projectInList.todos.splice(index);
+        projectInList.todos.splice(index, 1);
       }
       localStorage.setItem("projects", JSON.stringify(projecList));
 
       createProjectTodo(project);
     });
+    todo.appendChild(removeTodoButton);
+
+    projectTodoListElem.appendChild(todo);
   });
   projectTodo.appendChild(projectTodoListElem);
 
