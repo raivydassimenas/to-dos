@@ -58,7 +58,6 @@ const createProjectTodo = function (project) {
     removeTodoButton.classList.add("select-button");
     removeTodoButton.innerText = "Remove";
     removeTodoButton.addEventListener("click", (e) => {
-      // projectList = JSON.parse(localStorage.getItem("projects"));
       let projectInList = projectList.filter((el) => el == project)[0];
       const index = projectInList.todos.indexOf(elem);
       if (index != -1) {
@@ -66,7 +65,8 @@ const createProjectTodo = function (project) {
       }
       localStorage.setItem("projects", JSON.stringify(projectList));
 
-      createProjectTodo(project);
+      const todos = createProjectTodo(projectInList);
+      tab.replaceChild(todos, tab.childNodes[0]);
     });
     todo.appendChild(removeTodoButton);
 
