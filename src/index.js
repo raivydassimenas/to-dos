@@ -94,16 +94,36 @@ const createProjectTodo = function (project) {
   todoModalDescription.classList.add("modal-input");
   todoModalDescription.setAttribute("placeholder", "Description");
   todoModal.appendChild(todoModalDescription);
+  const todoModalDateLabel = document.createElement("label");
+  todoModalDateLabel.setAttribute("for", "due-date");
+  todoModalDateLabel.innerText = "Due date";
+  todoModal.appendChild(todoModalDateLabel);
+  const todoModalDate = document.createElement("input");
+  todoModalDate.setAttribute("type", "date");
+  todoModalDate.setAttribute("id", "due-date");
+  todoModal.appendChild(todoModalDate);
+  const todoModalPriorityLabel = document.createElement("label");
+  todoModalPriorityLabel.setAttribute("for", "priority");
+  todoModalPriorityLabel.innerText = "Priority";
+  todoModal.appendChild(todoModalPriorityLabel);
+  const todoModalPriority = document.createElement("input");
+  todoModalPriority.setAttribute("type", "range");
+  todoModalPriority.setAttribute("min", "0");
+  todoModalPriority.setAttribute("max", "5");
+  todoModalPriority.setAttribute("id", "priority");
+  todoModal.appendChild(todoModalPriority);
   const todoModalOK = document.createElement("button");
   todoModalOK.classList.add("modal-button");
   todoModalOK.innerText = "OK";
   todoModalOK.addEventListener("click", (e) => {
     const name = todoModalName.value;
     const description = todoModalDescription.value;
+    const dueDate = todoModalDate.value;
+    const priority = todoModalPriority.value;
 
     todoModal.classList.remove("open");
 
-    const newTodo = todo(name, description, null, null);
+    const newTodo = todo(name, description, dueDate, priority);
     const currProject = projectList.filter(e => project === e)[0];
     projectList.splice(projectList.indexOf(currProject));
     currProject.todos.push(newTodo);
