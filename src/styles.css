@@ -92,3 +92,8 @@ ul {
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.todo {
+  width: 20rem;
+  border: solid 1px #000000;
+}

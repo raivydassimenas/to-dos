@@ -51,8 +51,23 @@ const createProjectTodo = function (project) {
 
   project.todos.forEach((elem) => {
     const todo = document.createElement("li");
+    todo.classList.add("todo");
 
-    todo.innerText = elem.title;
+    const todoTitle = document.createElement("div");
+    todoTitle.innerText = "Title: " + elem.title;
+    todo.appendChild(todoTitle);
+
+    const todoDescription = document.createElement("div");
+    todoDescription.innerText = "Description: " + elem.description;
+    todo.appendChild(todoDescription);
+
+    const todoDate = document.createElement("div");
+    todoDate.innerText = "Due date: " + elem.dueDate;
+    todo.appendChild(todoDate);
+
+    const todoPriority = document.createElement("div");
+    todoPriority.innerText = "Priority: " + elem.priority;
+    todo.appendChild(todoPriority);
     
     const removeTodoButton = document.createElement("button");
     removeTodoButton.classList.add("select-button");
