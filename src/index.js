@@ -36,6 +36,21 @@ const createProjectList = function () {
     projectSelectButton.innerText = "Select";
     project.appendChild(projectSelectButton);
 
+    const removeProjectButton = document.createElement("button");
+    removeProjectButton.classList.add("select-button");
+    removeProjectButton.innerText = "Remove";
+    removeProjectButton.addEventListener("click", (e) => {
+      const index = projectList.indexOf(project);
+
+      projectList.splice(index, 1);
+      localStorage.setItem("projects", JSON.stringify(projectList));
+
+      tab.innerHTML = "";
+      tab.appendChild(createProjectList());
+    });
+    project.appendChild(removeProjectButton);
+
+
     projectListElem.appendChild(project);
   });
 
