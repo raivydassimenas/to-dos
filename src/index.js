@@ -16,15 +16,16 @@ const tab = document.createElement("div");
 tab.classList.add("tab");
 
 const createProjectList = function () {
-  const projectListElem = document.createElement("ul");
-  projectListElem.classList.add("list");
+  const projectListElem = document.createElement("div");
+  projectListElem.classList.add("project-list");
 
   projectList = JSON.parse(localStorage.getItem("projects"));
 
   projectList.forEach((elem) => {
-    const project = document.createElement("li");
+    const project = document.createElement("div");
 
     project.innerText = elem.title;
+    projectListElem.appendChild(project);
 
     const projectSelectButton = document.createElement("button");
     projectSelectButton.classList.add("select-button");
@@ -34,7 +35,7 @@ const createProjectList = function () {
       tab.appendChild(todos);
     });
     projectSelectButton.innerText = "Select";
-    project.appendChild(projectSelectButton);
+    projectListElem.appendChild(projectSelectButton);
 
     const removeProjectButton = document.createElement("button");
     removeProjectButton.classList.add("select-button");
@@ -48,10 +49,7 @@ const createProjectList = function () {
       tab.innerHTML = "";
       tab.appendChild(createProjectList());
     });
-    project.appendChild(removeProjectButton);
-
-
-    projectListElem.appendChild(project);
+    projectListElem.appendChild(removeProjectButton);
   });
 
   return projectListElem;
