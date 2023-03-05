@@ -105,4 +105,5 @@ ul {
 .todo {
   width: 20rem;
   border: solid 1px #000000;
+  margin: 0.5rem;
 }
