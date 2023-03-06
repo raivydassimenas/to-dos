@@ -162,8 +162,65 @@ const createProjectTodo = function (project) {
     printProjectTodos(currProject);
   });
   todoModal.appendChild(todoModalOK);
-
   content.appendChild(todoModal);
+
+  const editTodoModal = document.createElement("div");
+  editTodoModal.classList.add("modal");
+  editTodoModal.setAttribute("id", "edit-todo");
+  const editTodoModalExit = document.createElement("button");
+  editTodoModalExit.classList.add("modal-bg", "modal-exit");
+  editTodoModal.appendChild(projectModalExit);
+  const editTodoModalContainer = document.createElement("div");
+  editTodoModalContainer.classList.add("modal-container");
+  const editTodoModalExitButton = document.createElement("button");
+  editTodoModalExitButton.classList.add("modal-close", "modal-exit", "modal-button");
+  editTodoModalExitButton.innerText = "editTxit";
+  editTodoModalContainer.appendChild(editTodoModalExitButton);
+  const editTodoModalName = document.createElement("input");
+  editTodoModalName.classList.add("modal-input");
+  editTodoModalName.setAttribute("placeholder", "Todo name");
+  editTodoModal.appendChild(editTodoModalName);
+  const editTodoModalDescription = document.createElement("input");
+  editTodoModalDescription.classList.add("modal-input");
+  editTodoModalDescription.setAttribute("placeholder", "Description");
+  editTodoModal.appendChild(editTodoModalDescription);
+  const editTodoModalDateLabel = document.createElement("label");
+  editTodoModalDateLabel.setAttribute("for", "due-date");
+  editTodoModalDateLabel.innerText = "Due date";
+  editTodoModal.appendChild(editTodoModalDateLabel);
+  const editTodoModalDate = document.createElement("input");
+  editTodoModalDate.setAttribute("type", "date");
+  editTodoModalDate.setAttribute("id", "edit-todo-modal");
+  const editTodoModalPriority = document.createElement("input");
+  editTodoModalPriority.setAttribute("type", "range");
+  editTodoModalPriority.setAttribute("min", "0");
+  editTodoModalPriority.setAttribute("max", "5");
+  editTodoModalPriority.setAttribute("id", "edit-priority");
+  editTodoModal.appendChild(todoModalPriority);
+  const editTodoModalOK = document.createElement("button");
+  editTodoModalOK.classList.add("modal-button");
+  editTodoModalOK.innerText = "OK";
+  todoModalOK.addEventListener("click", (e) => {
+    elem.name = editTodoModalName.value;
+    elem.description = editTodoModalDescription.value;
+    elem.dueDate = editTodoModalDate.value;
+    elem.priority = editTodoModalPriority.value;
+
+    editTodoModal.classList.remove("open");
+
+    const newTodo = todo(name, description, dueDate, priority);
+    const currProject = projectList.filter(e => project === e)[0];
+    projectList.splice(projectList.indexOf(currProject));
+    currProject.todos.push(newTodo);
+    projectList.push(currProject);
+    localStorage.setItem("projects", JSON.stringify(projectList));
+
+    tab.innerHTML = "";
+    printProjectTodos(currProject);
+  });
+  todoModal.appendChild(todoModalOK);
+  content.appendChild(todoModal);
+
 
   const createTodoButton = document.createElement("button");
   createTodoButton.innerText = "New Todo";
@@ -197,29 +254,6 @@ const printProjectTodos = function(project) {
   tab.innerHTML = "";
   tab.appendChild(todos);
 }
-
-const todoDetails = function (todo) {
-  const todoElem = document.createElement("div");
-  todoElem.classList.add("todo-elem");
-
-  const todoTitle = document.createElement("div");
-  todoTitle = todo.title;
-  todoElem.appendChild(todoTitle);
-
-  const todoDescription = document.createElement("div");
-  todoDescription = todo.description;
-  todo.appendChild(todoDescription);
-
-  const todoDueDate = document.createElement("div");
-  todoDueDate = format(todo.dueDate, "MMM d, yyyy");
-  todo.appendChild(todoDueDate);
-
-  const todoPriority = document.createElement("div");
-  todoPriority = todoElem.priority;
-  todo.appendChild(todoPriority);
-
-  return todo;
-};
 
 const createProjectLinkLI = document.createElement("li");
 const createProjectLink = document.createElement("a");
