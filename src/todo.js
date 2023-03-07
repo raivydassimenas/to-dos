@@ -9,6 +9,7 @@ const todo = function (title, description, dueDate, priority) {
         setPriority: (newPriority) => {this.priority = newPriority},
         changeTitle: (newTitle) => {this.title = newTitle},
         changeDescription: (newDescription) => {this.description = newDescription},
+        changeDueDate: (newDueDate) => (this.dueDate = newDueDate),
     };
 };
 

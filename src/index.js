@@ -81,7 +81,71 @@ const createProjectTodo = function (project) {
     const todoPriority = document.createElement("div");
     todoPriority.innerText = "Priority: " + elem.priority;
     todo.appendChild(todoPriority);
-    
+
+    const editTodoModal = document.createElement("div");
+    editTodoModal.classList.add("modal");
+    editTodoModal.setAttribute("id", "edit-todo");
+    const editTodoModalExit = document.createElement("button");
+    editTodoModalExit.classList.add("modal-bg", "modal-exit");
+    editTodoModal.appendChild(projectModalExit);
+    const editTodoModalContainer = document.createElement("div");
+    editTodoModalContainer.classList.add("modal-container");
+    const editTodoModalExitButton = document.createElement("button");
+    editTodoModalExitButton.classList.add(
+      "modal-close",
+      "modal-exit",
+      "modal-button"
+    );
+    editTodoModalExitButton.innerText = "editTxit";
+    editTodoModalContainer.appendChild(editTodoModalExitButton);
+    const editTodoModalName = document.createElement("input");
+    editTodoModalName.classList.add("modal-input");
+    editTodoModalName.setAttribute("placeholder", "Todo name");
+    editTodoModalName.setAttribute("value", elem.title);
+    editTodoModal.appendChild(editTodoModalName);
+    const editTodoModalDescription = document.createElement("input");
+    editTodoModalDescription.classList.add("modal-input");
+    editTodoModalDescription.setAttribute("placeholder", "Description");
+    editTodoModalDescription.setAttribute("value", elem.description);
+    editTodoModal.appendChild(editTodoModalDescription);
+    const editTodoModalDateLabel = document.createElement("label");
+    editTodoModalDateLabel.setAttribute("for", "due-date");
+    editTodoModalDateLabel.innerText = "Due date";
+    editTodoModal.appendChild(editTodoModalDateLabel);
+    const editTodoModalDate = document.createElement("input");
+    editTodoModalDate.setAttribute("type", "date");
+    editTodoModalDate.setAttribute("id", "edit-todo-modal");
+    editTodoModalDate.setAttribute("value", elem.dueDate);
+    const editTodoModalPriority = document.createElement("input");
+    editTodoModalPriority.setAttribute("type", "range");
+    editTodoModalPriority.setAttribute("min", "0");
+    editTodoModalPriority.setAttribute("max", "5");
+    editTodoModalPriority.setAttribute("id", "edit-priority");
+    editTodoModalPriority.setAttribute("value", elem.priority);
+    editTodoModal.appendChild(editTodoModalPriority);
+    const editTodoModalOK = document.createElement("button");
+    editTodoModalOK.classList.add("modal-button");
+    editTodoModalOK.innerText = "OK";
+    editTodoModalOK.addEventListener("click", (e) => {
+      elem.name = editTodoModalName.value;
+      elem.description = editTodoModalDescription.value;
+      elem.dueDate = editTodoModalDate.value;
+      elem.priority = editTodoModalPriority.value;
+
+      editTodoModal.classList.remove("open");
+
+      // const currProject = projectList.filter(e => project === e)[0];
+      // projectList.splice(projectList.indexOf(currProject));
+      // currProject.todos.push(newTodo);
+      // projectList.push(currProject);
+      localStorage.setItem("projects", JSON.stringify(projectList));
+
+      tab.innerHTML = "";
+      printProjectTodos(currProject);
+    });
+    editTodoModal.appendChild(editTodoModalOK);
+    content.appendChild(editTodoModal);
+
     const removeTodoButton = document.createElement("button");
     removeTodoButton.classList.add("select-button");
     removeTodoButton.innerText = "Remove";
@@ -98,6 +162,18 @@ const createProjectTodo = function (project) {
     });
     todo.appendChild(removeTodoButton);
 
+    const editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+    editButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      editTodoModal.classList.add("open");
+      editTodoModalExitButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        editTodoModal.classList.remove("open");
+      });
+    });
+    todo.appendChild(editButton);
+
     projectTodoListElem.appendChild(todo);
   });
   projectTodo.appendChild(projectTodoListElem);
@@ -111,7 +187,11 @@ const createProjectTodo = function (project) {
   const todoModalContainer = document.createElement("div");
   todoModalContainer.classList.add("modal-container");
   const todoModalExitButton = document.createElement("button");
-  todoModalExitButton.classList.add("modal-close", "modal-exit", "modal-button");
+  todoModalExitButton.classList.add(
+    "modal-close",
+    "modal-exit",
+    "modal-button"
+  );
   todoModalExitButton.innerText = "Exit";
   todoModalContainer.appendChild(todoModalExitButton);
   const todoModalName = document.createElement("input");
@@ -152,7 +232,7 @@ const createProjectTodo = function (project) {
     todoModal.classList.remove("open");
 
     const newTodo = todo(name, description, dueDate, priority);
-    const currProject = projectList.filter(e => project === e)[0];
+    const currProject = projectList.filter((e) => project === e)[0];
     projectList.splice(projectList.indexOf(currProject));
     currProject.todos.push(newTodo);
     projectList.push(currProject);
@@ -163,64 +243,6 @@ const createProjectTodo = function (project) {
   });
   todoModal.appendChild(todoModalOK);
   content.appendChild(todoModal);
-
-  const editTodoModal = document.createElement("div");
-  editTodoModal.classList.add("modal");
-  editTodoModal.setAttribute("id", "edit-todo");
-  const editTodoModalExit = document.createElement("button");
-  editTodoModalExit.classList.add("modal-bg", "modal-exit");
-  editTodoModal.appendChild(projectModalExit);
-  const editTodoModalContainer = document.createElement("div");
-  editTodoModalContainer.classList.add("modal-container");
-  const editTodoModalExitButton = document.createElement("button");
-  editTodoModalExitButton.classList.add("modal-close", "modal-exit", "modal-button");
-  editTodoModalExitButton.innerText = "editTxit";
-  editTodoModalContainer.appendChild(editTodoModalExitButton);
-  const editTodoModalName = document.createElement("input");
-  editTodoModalName.classList.add("modal-input");
-  editTodoModalName.setAttribute("placeholder", "Todo name");
-  editTodoModal.appendChild(editTodoModalName);
-  const editTodoModalDescription = document.createElement("input");
-  editTodoModalDescription.classList.add("modal-input");
-  editTodoModalDescription.setAttribute("placeholder", "Description");
-  editTodoModal.appendChild(editTodoModalDescription);
-  const editTodoModalDateLabel = document.createElement("label");
-  editTodoModalDateLabel.setAttribute("for", "due-date");
-  editTodoModalDateLabel.innerText = "Due date";
-  editTodoModal.appendChild(editTodoModalDateLabel);
-  const editTodoModalDate = document.createElement("input");
-  editTodoModalDate.setAttribute("type", "date");
-  editTodoModalDate.setAttribute("id", "edit-todo-modal");
-  const editTodoModalPriority = document.createElement("input");
-  editTodoModalPriority.setAttribute("type", "range");
-  editTodoModalPriority.setAttribute("min", "0");
-  editTodoModalPriority.setAttribute("max", "5");
-  editTodoModalPriority.setAttribute("id", "edit-priority");
-  editTodoModal.appendChild(todoModalPriority);
-  const editTodoModalOK = document.createElement("button");
-  editTodoModalOK.classList.add("modal-button");
-  editTodoModalOK.innerText = "OK";
-  todoModalOK.addEventListener("click", (e) => {
-    elem.name = editTodoModalName.value;
-    elem.description = editTodoModalDescription.value;
-    elem.dueDate = editTodoModalDate.value;
-    elem.priority = editTodoModalPriority.value;
-
-    editTodoModal.classList.remove("open");
-
-    const newTodo = todo(name, description, dueDate, priority);
-    const currProject = projectList.filter(e => project === e)[0];
-    projectList.splice(projectList.indexOf(currProject));
-    currProject.todos.push(newTodo);
-    projectList.push(currProject);
-    localStorage.setItem("projects", JSON.stringify(projectList));
-
-    tab.innerHTML = "";
-    printProjectTodos(currProject);
-  });
-  todoModal.appendChild(todoModalOK);
-  content.appendChild(todoModal);
-
 
   const createTodoButton = document.createElement("button");
   createTodoButton.innerText = "New Todo";
@@ -236,7 +258,7 @@ const createProjectTodo = function (project) {
 
   const backButton = document.createElement("button");
   backButton.innerText = "Back";
-  backButton.addEventListener("click", e => {
+  backButton.addEventListener("click", (e) => {
     e.preventDefault();
     tab.innerText = "";
 
@@ -248,12 +270,12 @@ const createProjectTodo = function (project) {
   return projectTodo;
 };
 
-const printProjectTodos = function(project) {
+const printProjectTodos = function (project) {
   const todos = createProjectTodo(project);
 
   tab.innerHTML = "";
   tab.appendChild(todos);
-}
+};
 
 const createProjectLinkLI = document.createElement("li");
 const createProjectLink = document.createElement("a");
@@ -269,7 +291,11 @@ projectModal.appendChild(projectModalExit);
 const projectModalContainer = document.createElement("div");
 projectModalContainer.classList.add("modal-container");
 const projectModalExitButton = document.createElement("button");
-projectModalExitButton.classList.add("modal-close", "modal-exit", "modal-button");
+projectModalExitButton.classList.add(
+  "modal-close",
+  "modal-exit",
+  "modal-button"
+);
 projectModalExitButton.innerText = "Exit";
 projectModalContainer.appendChild(projectModalExitButton);
 const projectModalName = document.createElement("input");
