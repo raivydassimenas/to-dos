@@ -109,13 +109,14 @@ const createProjectTodo = function (project) {
     editTodoModalDescription.setAttribute("value", elem.description);
     editTodoModal.appendChild(editTodoModalDescription);
     const editTodoModalDateLabel = document.createElement("label");
-    editTodoModalDateLabel.setAttribute("for", "due-date");
+    editTodoModalDateLabel.setAttribute("for", "edit-date");
     editTodoModalDateLabel.innerText = "Due date";
     editTodoModal.appendChild(editTodoModalDateLabel);
     const editTodoModalDate = document.createElement("input");
     editTodoModalDate.setAttribute("type", "date");
-    editTodoModalDate.setAttribute("id", "edit-todo-modal");
+    editTodoModalDate.setAttribute("id", "edit-date");
     editTodoModalDate.setAttribute("value", elem.dueDate);
+    editTodoModal.appendChild(editTodoModalDate);
     const editTodoModalPriority = document.createElement("input");
     editTodoModalPriority.setAttribute("type", "range");
     editTodoModalPriority.setAttribute("min", "0");
@@ -141,7 +142,7 @@ const createProjectTodo = function (project) {
       localStorage.setItem("projects", JSON.stringify(projectList));
 
       tab.innerHTML = "";
-      printProjectTodos(currProject);
+      printProjectTodos(project);
     });
     editTodoModal.appendChild(editTodoModalOK);
     content.appendChild(editTodoModal);
