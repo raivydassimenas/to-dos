@@ -128,10 +128,18 @@ const createProjectTodo = function (project) {
     editTodoModalOK.classList.add("modal-button");
     editTodoModalOK.innerText = "OK";
     editTodoModalOK.addEventListener("click", (e) => {
-      elem.name = editTodoModalName.value;
+      const todoIndex = project.todos.indexOf(elem);
+      project.todos.splice(todoIndex, 1);
+      elem.changeTitle(editTodoModalName.value);
       elem.description = editTodoModalDescription.value;
       elem.dueDate = editTodoModalDate.value;
       elem.priority = editTodoModalPriority.value;
+      project.todos.push(elem);
+      console.log(project.todos);
+
+      const projectIndex = projectList.indexOf(project);
+      projectList.splice(projectIndex, 1);
+      projectList.push(project);
 
       editTodoModal.classList.remove("open");
 
