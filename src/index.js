@@ -6,6 +6,9 @@ import css from "./styles.css";
 localStorage.clear();
 localStorage.setItem("projects", JSON.stringify([]));
 let projectList = JSON.parse(localStorage.getItem("projects"));
+const defaultProject = project("Default");
+projectList.push(defaultProject);
+localStorage.setItem("projects", JSON.stringify(projectList));
 
 const content = document.querySelector("#content");
 
@@ -334,6 +337,19 @@ createProjectLink.addEventListener("click", (e) => {
 
 createProjectLinkLI.appendChild(createProjectLink);
 menuUL.appendChild(createProjectLinkLI);
+
+const displayProjectsLinkLI = document.createElement("li");
+const displayProjectsLink = document.createElement("a");
+displayProjectsLink.innerText = "Projects";
+displayProjectsLink.addEventListener("click", e => {
+  e.preventDefault();
+  tab.innerHTML = "";
+  tab.appendChild(createProjectList());
+  content.appendChild(tab);
+});
+displayProjectsLinkLI.appendChild(displayProjectsLink);
+menuUL.appendChild(displayProjectsLinkLI);
+
 menuNav.appendChild(menuUL);
 content.appendChild(menuNav);
 content.appendChild(projectModal);
